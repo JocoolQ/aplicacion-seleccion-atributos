@@ -1,0 +1,5 @@
+#Referente a los archivos generados por vscode
+.vscode
+
+#Archivos que se generan al ejecutar pip install -r requirements
+/mineria

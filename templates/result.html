@@ -1,0 +1,91 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron text-center">
+            <h1><strong>Resultado</strong> del algoritmo</h1>
+            <p>A continuación se verá un resumen del algoritmo aplicado</p>
+        </div>
+    </div>
+
+    <div class="col-6 text-center">
+        <p class="text-justify">
+            En esta tabla se puede apreciar el valor absolto de la resta entre la entropía total y las entropías
+            parciales. Siguiendo el algoritmo estudiado
+            se deben escoger los atributos cuya resta sea más negativa, lo que indica una entropía mayor.
+        </p>
+        <table class="table table-hover table-responsive">
+            <caption>Restas de entropías</caption>
+            <tr>
+                {% for key in substract_keys %}
+                <th scope="col">{{ key }}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                {% for value in substracts %}
+                <td>
+                    {{ value }}
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-6">
+        <div class="jumbotron text-center">
+            <table class="table table-hover table-responsive text-center">
+                <caption>Resumen del algoritmo</caption>
+                <tr>
+                    {% for key in result_keys %}
+                    <th scope="col">{{ key }}</th>
+                    {% endfor %}
+                </tr>
+                {% if cats_selected == 'Categórico' %}
+                <tr>
+                    {% for value_ent, value_cat in result_values %}
+                    <td>{{ value_ent }}</td>
+                    {% endfor %}
+                </tr>
+
+                <tr>
+                    {% for value_ent, value_cat in result_values %}
+                    <td>{{ value_cat }}</td>
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <tr>
+                    {% for value_ent in result_values %}
+                    <td>{{ value_ent }}</td>
+                    {% endfor %}
+                </tr>
+                {% endif %}
+            </table>
+
+            {% if cats_selected == 'Categórico' %}
+            {% if selected_for_num %}
+            <p class="text-center">El atributo que se debería eliminar es...</p>
+            <strong>{{ attr_to_erase }}</strong>
+            <p class="text-justify">
+                Debido a que tiene la menor entropía pero además tiene un dominio mayor por lo que
+                computacionalmente tratarlo es más costoso
+            </p>
+            {% else %}
+            <p>El atributo a eliminar es</p>
+            <strong>{{ attr_to_erase }}</strong>
+            <p class="text-justify">
+                Debido a que tiene la mayor entropía particular comparada con la entropía total
+            </p>
+            {% endif %}
+            {% else %}
+            <p class="text-center">El atributo que se debería eliminar es...</p>
+            <strong>{{ attr_to_erase }}</strong>
+            <p class="text-justify">
+                Debido a que tiene la mayor entropía particular comparada con la entropía total
+            </p>
+            {% endif %}
+        </div>
+        <a href="/download/selecting/" class="btn btn-primary mb-3">Descargar resultado</a>
+    </div>
+</div>
+{% endblock  %}

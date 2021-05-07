@@ -1,0 +1,117 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card card-header grey lighten-3">
+            <div align="center" class="card-content black-text">
+                <h2>Aplicación para la selección de atributos basada en la entropía</h2>
+                <p class="lead">
+                    <i>Esta aplicación le permitirá usar el algoritmo de selección
+                        de atributos basado en entropía para determinar los atributos más relevantes dentro del
+                        proceso de selección</i>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card card-header grey lighten-3">
+            <div class="card-content black-text" align="center">
+                <h3>Instrucciones de uso</h3>
+            </div>
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_1</i>Primer paso</div>
+                    <div class="collapsible-body">
+                        <p class="content">
+                            Haga clic en <b><i>Subir datos</i></b> y seleccione un archivo en formato
+                            .csv con los datos a analizar
+                        </p>
+                        <span class="material-icons rotated icons-body">
+                            publish
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_2</i>Segundo paso</div>
+                    <div class="collapsible-body">
+                        <p class="content">
+                            Seleccione la clasificación según el tipo de atributo (Númerico o Categórico) y
+                            haga clic en <b><i>Aplicar Algoritmo</i></b>
+                        </p>
+                        <span class="material-icons rotated">
+                            device_hub
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">filter_3</i>Tercer paso</div>
+                    <div class="collapsible-body">
+                        <p class="content">
+                            Observe los resultados y haga clic en <b><i>Descargar resultados</i></b>
+                            para obtener un archivo en formato .csv con la sugerencia otorgada por la aplicación
+                        </p>
+                        <span class="material-icons rotated">
+                            chrome_reader_mode
+                        </span>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<!--   
+<div class="row">
+    <div class="col">
+        <div class="jumbotron text-center">
+            <h1><strong>Aplicación</strong>, minería de datos</h1>
+            <p class="lead">
+                En esta aplicación se puede aplicar el algoritmo de selección
+                de atributos basado en entropía
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div class="jumbotron text-center">
+            <p class="lead">
+                1.Haga clic en Subir datos
+            </p>
+            <span class="material-icons rotated">
+                publish
+                </span>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="jumbotron text-center">
+            <p class="lead">
+                2. Escoga el tipo de atributos a analizar y haga clic en aplicar algoritmo
+            </p>
+            <span class="material-icons rotated">
+                device_hub
+                </span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div class="jumbotron text-center">
+            <p class="lead">
+                3. Visualice el resultado
+            </p>
+            <span class="material-icons rotated">
+                chrome_reader_mode
+                </span>
+        </div>
+        
+    </div>
+</div> -->
+{% endblock %}

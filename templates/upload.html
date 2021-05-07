@@ -1,0 +1,40 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="row pb-0">
+    <div class="col">
+        <div class="jumbotron text-center">
+            <h1><strong>Subir</strong> el archivo</h1>
+            <p class="lead">
+                Para subir el archivo, por favor haga clic en el botón
+                subir archivo
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col">
+        <form action="/upload/" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Ingresa tu nombre</label>
+                <input type="input" name="name" placeholder="Ingresa tu nombre" class="form-control mb-2">
+            </div>
+            <div class="form-group">
+                <label for="file">Selecciona el dataset a analizar</label>
+                <input type="file" name="file" class="form-control-file">
+            </div>
+            <div class="form-group">
+                <label for="separator">Por favor, escoge el separador del archivo a subir</label>
+                <br>
+                <select name="separator" id="sep"class="form-control" >
+                    <option value="," selected>,</option>
+                    <option value=";">;</option>
+                    <option value=" ">Espacio sencillo</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Subir archivo</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

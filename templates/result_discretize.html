@@ -1,0 +1,44 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron text-center">
+            <h1><strong>Resultado</strong> del algoritmo</h1>
+            <p>A continuación se verá un resumen del algoritmo aplicado</p>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="text-center">
+            <p class="text-justify">
+                En esta tabla se puede apreciar los últimos valores de chi calculados
+            </p>
+            <table class="table table-hover table-responsive">
+                <caption>Chi<sup>2</sup> de las últimas comparaciones</caption>
+                <tr>
+                    <th scope="col">Atributos</th>
+                    <th scope="col" colspan="{{ colspan_chi }}">Valores de chi</th>
+                    <th scope="col" colspan="{{ colspan_ranges }}"">Rangos</th>
+                </tr>
+                {% for attr in result.keys() %}
+                <tr>
+                    <td>{{attr}}</td>
+                    {% for carac in result[attr] %}
+                    {% for element in carac %}
+                    <td>{{ element }}</td>
+                    {% endfor %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="jumbotron text-center">
+            <p>La cantidad de iteraciones que el algoritmo hizo fue de</p>
+            <strong>{{ counter }}</strong>
+        </div>
+        <a href="/download/discreting/" class="btn btn-primary mb-3">Descargar resultado</a>
+    </div>
+</div>
+{% endblock  %}

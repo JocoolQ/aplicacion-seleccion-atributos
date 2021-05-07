@@ -1,0 +1,58 @@
+.bg-primary{
+    font-family: 'Helvetica';
+}
+/* .card-header{
+    background-color:  rgb(218, 227, 255) !important;
+    font-family: 'Helvetica';
+} */
+
+.page-content{
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+.card-body{
+    background-color:  rgb(111, 144, 252) !important;
+    font-family: 'Helvetica';
+}
+
+.card-header{
+    font-family: 'Helvetica';
+}
+
+.content{
+    font-size: 14pt;
+    font-family: 'Helvetica';
+}
+
+.nav-link {
+    color: white;
+   
+}
+
+.icons-body {
+    color:rgb(49, 97, 255);
+    font-size: 60pt;
+}
+
+.collapsible-header{
+    font-weight: bold;
+}
+
+.collapsible-body{
+    background-color: white;
+    text-align: center;
+}
+
+
+
+.tabs{
+    color: black;
+    font-weight: bold;
+}
+
+.footer{
+    color:white;
+    font-size: 10pt;
+    font-style: italic;
+}
