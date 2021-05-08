@@ -45,13 +45,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% if cats_selected == 'Categórico' %}
+                {% if categorias_seleccionadas == 'Categórico' %}
                 <tr>
                     {% for value_ent, value_cat in result_values %}
                     <td>{{ value_ent }}</td>
                     {% endfor %}
                 </tr>
-
                 <tr>
                     {% for value_ent, value_cat in result_values %}
                     <td>{{ value_cat }}</td>
@@ -69,7 +68,7 @@
         </div>
         <br>
         <div class="card-header text-center">
-            <b><p class="text-center" style="font-size: 18pt;">Atributo a eliminar: {{ attr_to_erase }}</p>
+            <b><p class="text-center" style="font-size: 18pt;">Atributo a eliminar: {{ atributos_a_eliminar }}</p>
             </b>
             {% if cats_selected == 'Categórico' %}
                 {% if selected_for_num %}   

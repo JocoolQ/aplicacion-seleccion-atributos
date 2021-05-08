@@ -19,85 +19,87 @@ def upload_file():
         return render_template('upload.html')
 
     elif request.method == 'POST':
-        file_fetched = request.files['file']
+        archivo = request.files['file']
 
-        separator = request.form['separator']
-        folder = os.path.realpath(__file__).replace('\\', '/').split('/')[0:-1]
-        file_fetched.save('/'.join(folder) + '/static/uploads/' + file_fetched.filename)
-        df_fetched = pd.read_csv('static/uploads/' + file_fetched.filename, sep=separator)
-        df_head = df_fetched.head()
+        separador = request.form['separador']
+        carpeta = os.path.realpath(__file__).replace('\\', '/').split('/')[0:-1]
+        archivo.save('/'.join(carpeta) + '/static/uploads/' + archivo.filename)
+        df_archivo = pd.read_csv('static/uploads/' + archivo.filename, sep=separador)
+        df_head = df_archivo.head()
 
         df_info = {}
 
-        df_info['head'] = df_fetched.head()
-        df_info['size'] = df_fetched.size
-        df_info['shape'] = df_fetched.shape
-        df_info['types'] = df_fetched.dtypes
-        df_info['columns'] = list(df_fetched.columns)
+        df_info['head'] = df_archivo.head()
+        df_info['size'] = df_archivo.size
+        df_info['shape'] = df_archivo.shape
+        df_info['types'] = df_archivo.dtypes
+        df_info['columns'] = list(df_archivo.columns)
 
         checker = Checker()
-        kind_of_attrs = checker.check_attributes(df_fetched)
-        attrs_options = ['Categórico', 'Numérico']
+        tipos_attr = checker.check_attributes(df_archivo)
+        opciones_attrs = ['Categórico', 'Numérico']
 
         return render_template('posted.html',
-        column_names = df_head.columns.values,
+        nombres_cols = df_head.columns.values,
         row_data = list(df_head.values.tolist()),
-        filename = file_fetched.filename,
+        nombre_archivo = archivo.filename,
         df_info = df_info,
-        kind_of_attrs = kind_of_attrs.values(),
-        attrs_options = attrs_options,
-        separator = separator,
+        tipos_attr = tipos_attr.values(),
+        opciones_attrs = opciones_attrs,
+        separador = separador,
         zip = zip)
 
-@app.route('/select_categoric/<string:filename>/<string:separator>' ,methods=['GET', 'POST'])
-def select_attr(filename, separator):
+@app.route('/select_categoric/<string:nombre_archivo>/<string:separador>' ,methods=['GET', 'POST'])
+def select_attr(nombre_archivo, separador):
 
-    cats_selected = request.form.getlist('cat')
+    categorias_seleccionadas = request.form.getlist('cat')
     selector = Selector()
-    df_fetched = pd.read_csv('static/uploads/' + filename, sep=separator)
+    df_archivo = pd.read_csv('static/uploads/' + nombre_archivo, sep=separador)
 
-    if(len(set(cats_selected)) == 1):
-        if(cats_selected[0] == 'Categórico'):
-            show_result, attr_to_erase, selected_for_num, substracts = selector.apply_categoric_selection(df_fetched, filename)
-        elif(cats_selected[0] == 'Numérico'):
-            show_result, attr_to_erase, substracts = selector.apply_numeric_selection(df_fetched)
+    if(len(set(categorias_seleccionadas)) == 1):
+        if(categorias_seleccionadas[0] == 'Categórico'):
+            mostrar_resultado, atributos_a_eliminar, selected_for_num, substracts = selector.aplicar_seleccion_categorica(df_archivo, nombre_archivo)
+        elif(categorias_seleccionadas[0] == 'Numérico'):
+            mostrar_resultado, atributos_a_eliminar, substracts = selector.aplicar_seleccion_numerica(df_archivo)
             selected_for_num = 0
     else:
-        return redirect('/discretize_attrs/' + filename + '/' + separator + '/' + "".join(e + ',' for e in cats_selected))
+        return redirect('/discretize_attrs/' + nombre_archivo + '/' + separador + '/' + "".join(e + ',' for e in categorias_seleccionadas))
     
-    result_keys = show_result.keys()
-    result_values = show_result.values()
+    result_keys = mostrar_resultado.keys()
+    
+    result_values = mostrar_resultado.values()
+    print(result_values)
     substract_keys = list(result_keys)[2:]
 
     return render_template('result.html',
-    filename = filename,
-    show_result = show_result,
-    attr_to_erase = attr_to_erase,
+    nombre_archivo = nombre_archivo,
+    mostrar_resultado = mostrar_resultado,
+    atributos_a_eliminar = atributos_a_eliminar,
     selected_for_num = selected_for_num,
     result_keys = result_keys,
     result_values = result_values,
-    cats_selected = cats_selected[0],
+    categorias_seleccionadas = categorias_seleccionadas[0],
     substracts = substracts,
     substract_keys = substract_keys,
     len = len,
     zip = zip)
 
-@app.route('/discretize_attrs/<string:filename>/<string:separator>/<string:cats_selected>' ,methods=['GET', 'POST'])
-def discretize_attrs(filename, separator, cats_selected):
-    categories = cats_selected.split(',')
-    cats_indexes = [index for index, value in enumerate(categories) if value == 'Categórico']
-    nums_indexes = [index for index, value in enumerate(categories) if value == 'Numérico']
-    df_fetched = pd.read_csv('static/uploads/' + filename, sep=separator)
-    column_names = df_fetched.columns.values
-    real_categories = []
+@app.route('/discretize_attrs/<string:nombre_archivo>/<string:separador>/<string:categorias_seleccionadas>' ,methods=['GET', 'POST'])
+def discretize_attrs(nombre_archivo, separador, categorias_seleccionadas):
+    categorias = categorias_seleccionadas.split(',')
+    cats_indexes = [index for index, value in enumerate(categorias) if value == 'Categórico']
+    nums_indexes = [index for index, value in enumerate(categorias) if value == 'Numérico']
+    df_archivo = pd.read_csv('static/uploads/' + nombre_archivo, sep=separador)
+    nombres_cols = df_archivo.columns.values
+    real_categorias = []
     real_numerics = []
     for index in cats_indexes:
-        real_categories.append(column_names[index])
+        real_categorias.append(nombres_cols[index])
     
     for index in nums_indexes:
-        real_numerics.append(column_names[index])
+        real_numerics.append(nombres_cols[index])
 
-    min_groups = range(2, 10)
+    min_grupos = range(2, 10)
     
     if request.method == 'POST':
         params = {
@@ -106,7 +108,7 @@ def discretize_attrs(filename, separator, cats_selected):
         }
 
         discretizer = Discretizer()
-        result, counter = discretizer.discretize(df_fetched, real_numerics, params['pivot'], params['max_intervals'], filename)
+        result, counter = discretizer.discretize(df_archivo, real_numerics, params['pivot'], params['max_intervals'], nombre_archivo)
         colspan_chi = len(list(result.values())[0][0])
         colspan_ranges = len(list(result.values())[0][1])
 
@@ -117,12 +119,12 @@ def discretize_attrs(filename, separator, cats_selected):
         colspan_ranges = colspan_ranges)
     
     return render_template('discretize.html',
-    filename = filename,
-    separator = separator,
-    categories = real_categories,
-    column_names = column_names,
-    min_groups = min_groups,
-    cats_selected = cats_selected)
+    nombre_archivo = nombre_archivo,
+    separador = separador,
+    categorias = real_categorias,
+    nombres_cols = nombres_cols,
+    min_grupos = min_grupos,
+    categorias_seleccionadas = categorias_seleccionadas)
     
 @app.route('/download/<string:kind>/', methods=['GET'])
 def descarga(kind):
@@ -132,7 +134,6 @@ def descarga(kind):
 @app.route('/info/')
 def get_info():
     return render_template('info.html')
-
 
 def run():
     app.run(debug = True, host='0.0.0.0')

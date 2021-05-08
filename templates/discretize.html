@@ -8,13 +8,13 @@
         </div>
     </div>
 </div>
-<form action="/discretize_attrs/{{filename}}/{{separator}}/{{cats_selected}}" method="POST">
+<form action="/discretize_attrs/{{nombre_archivo}}/{{separador}}/{{categorias_seleccionadas}}" method="POST">
     <div class="row mb-5">
         <div class="col s4">
             <div class="form-group">
                 <label for="reference">Seleccione el atributo por el cual discretizar</label>
                 <select name="reference_cat" id="reference_cat" class="form-control form-control-sm">
-                    {% for option in categories %}
+                    {% for option in categorias %}
                     <option value="{{option}}">{{ option }}</option>
                     {% endfor %}
                 </select>
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label for="min_group">Seleccione el número mínimo de intervalos</label>
                 <select name="min_group" id="min_group" class="form-control form-control-sm">
-                    {% for group in min_groups %}
+                    {% for group in min_grupos %}
                     <option value="{{group}}">{{ group }}</option>
                     {% endfor %}
                 </select>
