@@ -1,6 +1,15 @@
 .bg-primary{
     font-family: 'Helvetica';
 }
+
+.collapsible-body p{
+    padding: 0.2rem !important;
+}
+
+.table-bordered thead th  {
+    color: white;
+}
+
 /* .card-header{
     background-color:  rgb(218, 227, 255) !important;
     font-family: 'Helvetica';
@@ -27,7 +36,6 @@
 
 .nav-link {
     color: white;
-   
 }
 
 .icons-body {

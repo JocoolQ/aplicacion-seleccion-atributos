@@ -3,42 +3,37 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <div class="jumbotron text-center">
-            <h1><strong>Resultado</strong> del algoritmo</h1>
-            <p>A continuación se verá un resumen del algoritmo aplicado</p>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="text-center">
-            <p class="text-justify">
-                En esta tabla se puede apreciar los últimos valores de chi calculados
-            </p>
-            <table class="table table-hover table-responsive">
-                <caption>Chi<sup>2</sup> de las últimas comparaciones</caption>
-                <tr>
-                    <th scope="col">Atributos</th>
-                    <th scope="col" colspan="{{ colspan_chi }}">Valores de chi</th>
-                    <th scope="col" colspan="{{ colspan_ranges }}"">Rangos</th>
-                </tr>
-                {% for attr in result.keys() %}
-                <tr>
-                    <td>{{attr}}</td>
-                    {% for carac in result[attr] %}
-                    {% for element in carac %}
-                    <td>{{ element }}</td>
+        <div class="card-header text-center">
+            <h1>Resultados de la discretización</h1>
+            <p><b>Cantidad de iteraciones del algoritmo: {{ counter }}</b></p>
+            <div class="card-header text-center">
+                <p class="text-center">
+                    En la siguiente tabla se muestran los valores de chi<sup>2</sup> calculados mediante el algoritmo
+                    ChiMerge
+                </p>
+                <table class="table table-striped table-bordered">
+                    <thead class="bg-primary">
+                        <tr>
+                            <th scope="col">Atributos</th>
+                            <th scope="col" colspan="{{ colspan_chi }}">Valores de chi<sup>2</sup></th>
+                            <th scope="col" colspan="{{ colspan_ranges }}"">Rangos</th>
+                        </tr>
+                    </thead>
+                    {% for attr in result.keys() %}
+                    <tr>
+                        <td>{{attr}}</td>
+                        {% for carac in result[attr] %}
+                        {% for element in carac %}
+                        <td>{{ element }}</td>
+                        {% endfor %}
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
+            <br>
+            <a href=" /download/discreting/" class="btn bg-primary mb-3">Descargar csv</a>
         </div>
-    </div>
-    <div class="col-6">
-        <div class="jumbotron text-center">
-            <p>La cantidad de iteraciones que el algoritmo hizo fue de</p>
-            <strong>{{ counter }}</strong>
-        </div>
-        <a href="/download/discreting/" class="btn btn-primary mb-3">Descargar resultado</a>
     </div>
 </div>
-{% endblock  %}
+{% endblock %}

@@ -19,10 +19,6 @@ def upload_file():
         return render_template('upload.html')
 
     elif request.method == 'POST':
-        data = {
-            'name': request.form['name']
-        }
-
         file_fetched = request.files['file']
 
         separator = request.form['separator']
@@ -44,7 +40,6 @@ def upload_file():
         attrs_options = ['Categórico', 'Numérico']
 
         return render_template('posted.html',
-        data = data,
         column_names = df_head.columns.values,
         row_data = list(df_head.values.tolist()),
         filename = file_fetched.filename,
