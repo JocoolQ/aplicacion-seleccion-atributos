@@ -8,7 +8,9 @@ class Checker:
         for i in df.columns:
             if df[i].dtype == 'object':
                 checking[i] = 'Categórico'
-            elif(df[i].value_counts().count() < len(df[i])/2):
+            elif(df[i].value_counts().count() < len(df[i])/2): 
+                #Verifica si el dataset contiene una cantidad de datos únicos menor a la
+                #cantidad total de datos
                 checking[i] = 'Categórico'
             else:
                 checking[i] = 'Numérico'

@@ -56,6 +56,8 @@ def select_attr(nombre_archivo, separador):
     selector = Selector()
     df_archivo = pd.read_csv('static/uploads/' + nombre_archivo, sep=separador)
 
+    #Identifica si todos los atributos son Categóricos o Numéricos, o si existen atributos
+    #tanto numéricos como categóricos
     if(len(set(categorias_seleccionadas)) == 1):
         if(categorias_seleccionadas[0] == 'Categórico'):
             mostrar_resultado, atributos_a_eliminar, selected_for_num, substracts = selector.aplicar_seleccion_categorica(df_archivo, nombre_archivo)
@@ -65,10 +67,11 @@ def select_attr(nombre_archivo, separador):
     else:
         return redirect('/discretize_attrs/' + nombre_archivo + '/' + separador + '/' + "".join(e + ',' for e in categorias_seleccionadas))
     
+    #Encabezados de la tabla de resumen
     result_keys = mostrar_resultado.keys()
-    
+    #Valores de la tabla de resumen
     result_values = mostrar_resultado.values()
-    print(result_values)
+    #Encabezados de la tabla de entropías
     substract_keys = list(result_keys)[2:]
 
     return render_template('result.html',
